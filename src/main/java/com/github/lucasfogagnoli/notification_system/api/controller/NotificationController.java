@@ -27,7 +27,7 @@ public class NotificationController {
     public Mono<ResponseEntity<Notification>> sendNotification(@Valid @RequestBody NotificationRequestDto notificationRequestDto) {
         log.info("Calling send notification");
 
-        return portIn.sendNotification(notificationRequestDto.message())
+        return portIn.sendNotification(notificationRequestDto)
                 .flatMap(notification -> Mono.just(ResponseEntity.ok(notification)))
                 .doOnSuccess(success -> log.info("Notification sent."))
                 .onErrorResume(error -> {
